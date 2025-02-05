@@ -201,6 +201,10 @@ public:
 protected:
 	// Create pins from the context asset, i.e. Sequencer events
 	void RefreshContextPins();
+
+public:
+	// Reconstruct the parent node in order to refresh context pins. To be used by AddOns
+	void ReconstructParent();
 	
 public:
 	// UEdGraphNode

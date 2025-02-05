@@ -1025,6 +1025,12 @@ void UFlowGraphNode::RefreshContextPins()
 		return;
 	}
 
+	if (IsValid(Cast<UFlowNodeAddOn>(NodeInstance)))
+	{
+		ReconstructParent();
+		return;
+	}
+
 	UFlowNode* FlowNode = Cast<UFlowNode>(NodeInstance);
 	if (!IsValid(FlowNode))
 	{
@@ -1080,6 +1086,14 @@ void UFlowGraphNode::RefreshContextPins()
 
 	FlowNode->OutputPins = NodeDefaults->OutputPins;
 	FlowNode->AddOutputPins(ContextOutputs);
+}
+
+void UFlowGraphNode::ReconstructParent()
+{
+	if (UFlowGraphNode* Parent = GetParentNode())
+	{
+		Parent->ReconstructNode();
+	}
 }
 
 void UFlowGraphNode::GetPinHoverText(const UEdGraphPin& Pin, FString& HoverTextOut) const

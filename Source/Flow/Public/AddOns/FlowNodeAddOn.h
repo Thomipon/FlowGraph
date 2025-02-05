@@ -80,6 +80,6 @@ protected:
 	void CacheFlowNode();
 
 #if WITH_EDITOR
-	TArray<FFlowPin> GetPinsForContext(const TArray<FFlowPin>& Context) const;
+	TArray<FFlowPin> GetPinsForContext(const TArray<FFlowPin>& Context, const TArray<FFlowPin>& SuperContext) const;
 #endif
 };

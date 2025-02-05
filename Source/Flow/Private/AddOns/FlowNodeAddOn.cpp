@@ -107,11 +107,12 @@ void UFlowNodeAddOn::CacheFlowNode()
 }
 
 #if WITH_EDITOR
-TArray<FFlowPin> UFlowNodeAddOn::GetPinsForContext(const TArray<FFlowPin>& Context) const
+TArray<FFlowPin> UFlowNodeAddOn::GetPinsForContext(const TArray<FFlowPin>& Context, const TArray<FFlowPin>& SuperContext) const
 {
-	TArray<FFlowPin> ContextPins = Super::GetContextInputs();
-
-	ContextPins.Reserve(ContextPins.Num() + Context.Num());
+	TArray<FFlowPin> ContextPins;
+	ContextPins.Reserve(SuperContext.Num() + Context.Num());
+	
+	ContextPins.Append(SuperContext);
 	
 	for (const FFlowPin& InputPin : Context)
 	{
@@ -130,11 +131,11 @@ TArray<FFlowPin> UFlowNodeAddOn::GetPinsForContext(const TArray<FFlowPin>& Conte
 
 TArray<FFlowPin> UFlowNodeAddOn::GetContextInputs() const
 {
-	return GetPinsForContext(InputPins);
+	return GetPinsForContext(InputPins, Super::GetContextInputs());
 }
 
 TArray<FFlowPin> UFlowNodeAddOn::GetContextOutputs() const
 {
-	return GetPinsForContext(OutputPins);
+	return GetPinsForContext(OutputPins, Super::GetContextOutputs());
 }
 #endif // WITH_EDITOR

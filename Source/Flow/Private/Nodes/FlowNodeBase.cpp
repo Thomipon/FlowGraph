@@ -211,6 +211,25 @@ FFlowPin* UFlowNodeBase::FindFlowPinByName(const FName& PinName, TArray<FFlowPin
 }
 
 #if WITH_EDITOR
+
+bool UFlowNodeBase::SupportsContextPins() const
+{
+	if (IFlowContextPinSupplierInterface::SupportsContextPins())
+	{
+		return true;
+	}
+	
+	for (const UFlowNodeAddOn* AddOn : AddOns)
+	{
+		if (IsValid(AddOn) && AddOn->SupportsContextPins())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 TArray<FFlowPin> UFlowNodeBase::GetContextInputs() const
 {
 	TArray<FFlowPin> ContextInputs = IFlowContextPinSupplierInterface::GetContextInputs();

@@ -267,14 +267,6 @@ bool UFlowNode::SupportsContextPins() const
 		return true;
 	}
 
-	for (const UFlowNodeAddOn* AddOn : AddOns)
-	{
-		if (IsValid(AddOn) && AddOn->SupportsContextPins())
-		{
-			return true;
-		}
-	}
-
 	return false;
 }
 

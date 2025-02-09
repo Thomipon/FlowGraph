@@ -1025,7 +1025,7 @@ void UFlowGraphNode::RefreshContextPins()
 		return;
 	}
 
-	if (IsValid(Cast<UFlowNodeAddOn>(NodeInstance)))
+	if (IsValid(Cast<UFlowNodeAddOn>(NodeInstance)) && NodeInstance->SupportsContextPins())
 	{
 		ReconstructParent();
 		return;

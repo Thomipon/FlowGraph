@@ -278,6 +278,38 @@ TArray<FFlowPin> UFlowNodeBase::GetContextOutputs() const
 	return ContextOutputs;
 }
 
+EDataValidationResult UFlowNodeBase::ValidateNode()
+{
+	for (UFlowNodeAddOn* AddOn : AddOns)
+	{
+		if (!IsValid(AddOn))
+		{
+			ValidationLog.Error(TEXT("Invalid addon found!"), this);
+			return EDataValidationResult::Invalid;
+		}
+		if (AddOn->ValidateNode() == EDataValidationResult::Invalid)
+		{
+			ValidationLog.Messages.Append(AddOn->ValidationLog.Messages);
+			ValidationLog.Error(TEXT("Addon validation failed!"), this);
+			return EDataValidationResult::Invalid;
+		}
+	}
+	return EDataValidationResult::Valid;
+}
+
+void UFlowNodeBase::ClearValidationLogRecursively()
+{
+	ValidationLog.Messages.Empty();
+
+	for (UFlowNodeAddOn* AddOn : AddOns)
+	{
+		if (AddOn)
+		{
+			AddOn->ClearValidationLogRecursively();
+		}
+	}
+}
+
 FString UFlowNodeBase::GetStatusString() const
 {
 	return K2_GetStatusString();

@@ -129,6 +129,9 @@ public:
 	virtual TArray<FFlowPin> GetContextInputs() const override;
 	virtual TArray<FFlowPin> GetContextOutputs() const override;
 	// --
+	
+	virtual EDataValidationResult ValidateNode();
+	void ClearValidationLogRecursively();
 #endif // WITH_EDITOR
 	
 //////////////////////////////////////////////////////////////////////////

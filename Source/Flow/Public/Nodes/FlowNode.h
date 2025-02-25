@@ -59,8 +59,6 @@ public:
 	virtual void PostLoad() override;
 	// --
 
-	virtual EDataValidationResult ValidateNode() { return EDataValidationResult::NotValidated; }
-
 #endif
 
 	// Inherits Guid after graph node

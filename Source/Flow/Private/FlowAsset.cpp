@@ -121,7 +121,7 @@ EDataValidationResult UFlowAsset::ValidateAsset(FFlowMessageLog& MessageLog)
 				MessageLog.Error(*ErrorMsg, Node.Value);
 			}
 
-			Node.Value->ValidationLog.Messages.Empty();
+			Node.Value->ClearValidationLogRecursively();
 			if (Node.Value->ValidateNode() == EDataValidationResult::Invalid)
 			{
 				MessageLog.Messages.Append(Node.Value->ValidationLog.Messages);

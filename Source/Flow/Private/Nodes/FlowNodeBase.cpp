@@ -671,7 +671,7 @@ void UFlowNodeBase::PostEditChangeProperty(FPropertyChangedEvent& PropertyChange
 	}
 
 	const FName PropertyName = PropertyChangedEvent.GetPropertyName();
-	if (PropertyName == GET_MEMBER_NAME_CHECKED(UFlowNode, AddOns))
+	if (PropertyName == GET_MEMBER_NAME_CHECKED(UFlowNodeBase, AddOns))
 	{
 		// Potentially need to rebuild the pins from the AddOns of this node
 		OnReconstructionRequested.ExecuteIfBound();

@@ -123,8 +123,6 @@ void UFlowGraphNode::PostPlacedNewNode()
 {
 	Super::PostPlacedNewNode();
 
-	SubscribeToExternalChanges();
-
 	// NOTE - NodeInstance can be already spawned by paste operation, don't override it
 
 	if (NodeInstanceClass.IsPending())
@@ -145,6 +143,8 @@ void UFlowGraphNode::PostPlacedNewNode()
 			InitializeInstance();
 		}
 	}
+	
+	SubscribeToExternalChanges();
 }
 
 void UFlowGraphNode::PrepareForCopying()
